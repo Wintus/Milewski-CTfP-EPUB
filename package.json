@@ -1,7 +1,7 @@
 {
   "name": "milewski-ctfp-epub",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/Wintus/Milewski-CTfP-EPUB.git",
   "author": "wintus <yuya0726+GitHub@gmail.com>",
   "license": "MIT"
