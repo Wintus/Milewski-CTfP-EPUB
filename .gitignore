@@ -91,3 +91,6 @@ typings/
 
 # TypeScript
 dist/
+
+# output
+content/
