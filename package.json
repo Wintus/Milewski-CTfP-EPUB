@@ -4,5 +4,14 @@
   "main": "dist/index.js",
   "repository": "https://github.com/Wintus/Milewski-CTfP-EPUB.git",
   "author": "wintus <yuya0726+GitHub@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "jsdom": "^15.2.0",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^12.2.4",
+    "@types/node": "^12.7.12",
+    "@types/node-fetch": "^2.5.2"
+  }
 }
