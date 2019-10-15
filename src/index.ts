@@ -1,7 +1,9 @@
 import { JSDOM } from "jsdom";
 import fetch from "node-fetch";
+import { getTableOfContents } from "./dom";
 
-const url = "https://example.com";
+const url =
+  "https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/";
 
 const fetchDoc = async (url: string) => {
   const response = await fetch(url);
@@ -12,7 +14,6 @@ const fetchDoc = async (url: string) => {
 
 (async () => {
   const document = await fetchDoc(url);
-  const nodes = [...document.getElementsByTagName("p")];
-  const texts = nodes.map(p => p.textContent);
-  console.log(texts);
+  const tableOfContents = getTableOfContents(document);
+  console.log(tableOfContents);
 })();
