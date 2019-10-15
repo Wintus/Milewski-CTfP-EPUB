@@ -1,6 +1,7 @@
 const contentSelector = "#content .post-content";
 
-type Chapter = { chapterNo: string; title: string };
+export type Chapter = { chapterNo: string; title: string };
+export type Content = { content: Element; images: HTMLImageElement[] };
 type ChapterUrl = Chapter & { url: string };
 
 export const getTableOfContents = (document: Document): ChapterUrl[] => {
@@ -14,4 +15,15 @@ export const getTableOfContents = (document: Document): ChapterUrl[] => {
       url: a.href
     }));
   });
+};
+
+export const getContent = (document: Document): Content => {
+  const content = document.querySelector(contentSelector);
+  // guard
+  if (content == null) {
+    throw new Error(`Invalid document without content: ${document}`);
+  }
+
+  const images = Array.from(content.getElementsByTagName("img"));
+  return { content, images };
 };
