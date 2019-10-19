@@ -39,6 +39,24 @@ export const getContent = (
     throw new Error(`Invalid document without content: ${document}`);
   }
 
+  // remove noises
+  [
+    ".cs-rating",
+    ".pd-rating",
+    ".twitter-follow-button",
+    ".geo",
+    ".geo-post",
+    ".wpcnt",
+    "#jp-post-flair",
+    ".post-info",
+    ".post-footer",
+    "script"
+  ]
+    .map(selector => content.querySelector(selector))
+    .forEach(node => {
+      if (node) node.remove();
+    });
+
   const images = content.getElementsByTagName("img");
   // with a side-effect to change the element
   const imageUrls = Array.from(images).map(img => {
