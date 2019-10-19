@@ -1,7 +1,10 @@
+import { join } from "path";
+import { getFilename } from "./url";
+
 const contentSelector = "#content .post-content";
 
 export type Chapter = { chapterNo: string; title: string };
-export type Content = { content: Element; images: HTMLImageElement[] };
+export type Content = { content: Element; imageUrls: string[] };
 type ChapterUrl = Chapter & { url: string };
 
 export const getTableOfContents = (document: Document): ChapterUrl[] => {
@@ -17,13 +20,32 @@ export const getTableOfContents = (document: Document): ChapterUrl[] => {
   });
 };
 
-export const getContent = (document: Document): Content => {
+// JSDOM implements replaceWith
+const replaceParent = (node: Node): void => {
+  const p1 = node.parentNode;
+  if (p1) {
+    // @ts-ignore
+    p1.replaceWith(node);
+  }
+};
+
+export const getContent = (
+  document: Document,
+  imageDir = "images"
+): Content => {
   const content = document.querySelector(contentSelector);
   // guard
   if (content == null) {
     throw new Error(`Invalid document without content: ${document}`);
   }
 
-  const images = Array.from(content.getElementsByTagName("img"));
-  return { content, images };
+  const images = content.getElementsByTagName("img");
+  // with a side-effect to change the element
+  const imageUrls = Array.from(images).map(img => {
+    const url = img.src;
+    img.src = join(imageDir, getFilename(url));
+    replaceParent(img);
+    return url;
+  });
+  return { content, imageUrls };
 };
