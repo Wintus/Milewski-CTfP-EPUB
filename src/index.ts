@@ -8,12 +8,8 @@ import { getFilename } from "./url";
 const url =
   "https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/";
 
-const fetchDoc = async (url: string) => {
-  const response = await fetch(url);
-  const html = await response.text();
-  const dom = new JSDOM(html);
-  return dom.window.document;
-};
+const fetchDoc = async (url: string) =>
+  (await JSDOM.fromURL(url)).window.document;
 
 const fullHTML = (html: string) =>
   new JSDOM(`<!DOCTYPE html>${html}`).serialize();
